@@ -1,6 +1,22 @@
 import pandas as pd
 import streamlit as st
 import altair as alt
+import requests
+from data_cleaning import cleanup_data
+
+@st.cache_data
+def read_clean_data(url):
+
+    response = requests.get(url)
+    print(response.status_code)
+    response_dict = response.json()
+
+    data = response_dict["index"]
+    df = pd.DataFrame(data)
+
+    df_clean = cleanup_data(df)
+
+    return df_clean
 
 def create_chart(sub_df,column):
 
@@ -22,7 +38,9 @@ def main():
     st.set_page_config(page_title="Protected Trees", page_icon=None, layout="wide", initial_sidebar_state="auto",
                        menu_items= {'About': "# This is a header. This is an *extremely* cool app!"})
 
-    df = pd.read_csv("/Users/eNeuer/PycharmProjects/tree-finder/df_cleaned.csv")
+    #df = pd.read_csv("/Users/eNeuer/PycharmProjects/tree-finder/df_cleaned.csv")
+    url = "https://www.berlin.de/ba-charlottenburg-wilmersdorf/verwaltung/aemter/umwelt-und-naturschutz/naturschutz/baeume/index.php/index/all.json?q="
+    df = read_clean_data(url)
 
     st.title("🌳 Protected Trees in Berlin Charlottenburg-Wilmersdorf")
 

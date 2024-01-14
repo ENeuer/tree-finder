@@ -1,4 +1,6 @@
 import pandas as pd
+from geopy.geocoders import Nominatim
+from geopy.exc import GeocoderTimedOut
 
 def remove_house_numbers(street):
     return ''.join(filter(lambda x: not x.isdigit(), street)).rstrip()
@@ -30,3 +32,14 @@ def split_tree_circ(data:pd.DataFrame, column:str):
 
 def convert_to_integers(str_list):
     return [int(x) for x in str_list if x.isdigit()]
+
+
+def get_location(address):
+    geolocator = Nominatim(user_agent="my-tree-app")
+    try:
+        location = geolocator.geocode(address)
+        if location:
+            return location.latitude, location.longitude
+    except GeocoderTimedOut:
+        return None, None
+    return None, None

@@ -20,4 +20,15 @@ streamlit run main.py
 ```
 
 
+## Acknowledgments
+
+This project uses the `geopy` library, which is distributed under the MIT License. We thank the contributors of `geopy` for their work.
+
+
+## License
+
+`geopy` is used under the [MIT License](https://opensource.org/licenses/MIT)
+
+
+
 

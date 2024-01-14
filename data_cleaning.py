@@ -3,21 +3,6 @@ from data_cleaning_functions import remove_house_numbers, remove_cm, split_tree_
 
 def cleanup_data(df):
 
-    # reading the dataset
-    #df = pd.read_csv("index.csv", sep=";")
-
-    # 4. Data Exploration for Data Cleaning
-    # size of dataset, output of first 5 rows
-    #print(df.shape)
-    #print(df.head())
-
-    # exploring columns & missing values
-    #print(df.columns)
-    #print(df.info())
-
-    # exploring columns where "nummer" is missing and see if it is available in the columns standort or adresse
-    #print(df[["standort","adresse","nummer"]][df["nummer"].isna()])
-
     # deleting multiple columns from the dataset
     df.drop(columns =["baumnr", "east_etrs89", "north_etrs89", "originalbild"],inplace=True)
 

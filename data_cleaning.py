@@ -22,7 +22,6 @@ def cleanup_data(df):
     df['location'] = df.apply(lambda row: row['house_number'] + " " + row['street'] + " " + row['postalcode'] + " " + "Berlin Germany", axis=1)
 
     # Adding column containnig lat and long coordinates
-    #df["loc_coord"] = df['location'].apply(get_location)
     df[['latitude', 'longitude']] = df['location'].apply(lambda x: pd.Series(get_location(x)))
 
     # Adding unit into the tree_circ column

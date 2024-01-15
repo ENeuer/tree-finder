@@ -1,5 +1,5 @@
 import pandas as pd
-from data_cleaning_functions import remove_house_numbers, remove_cm, split_tree_circ, get_location
+from data_cleaning_functions import remove_house_numbers, remove_cm, split_tree_circ, split_prot_purp, get_location
 
 
 def cleanup_data(df):
@@ -41,6 +41,9 @@ def cleanup_data(df):
     df_updated["tr_count"] = df["tree_circ_cm_list"].apply(lambda x: len(x) if x else None)
     # adding trunk_mean column to data frame
     df_updated["trunk_mean"] = round(df["tree_circ_cm_list"].apply(lambda x: sum(x) / len(x) if x else None), 2)
+
+    # Adding split prop purp as columns to dataframe
+    df_updated = split_prot_purp(df, "prot_purpose")
 
     # Saving the updated dataframe
     # df_updated.to_csv("df_cleaned.csv")

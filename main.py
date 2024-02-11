@@ -60,9 +60,22 @@ def main():
 
     st.title("🌳 Protected Trees in Berlin Charlottenburg-Wilmersdorf")
 
-    st.write("### Map of all trees")
+    st.write("### Map of all trees*")
+    st.write("(Zoom out for all trees)")
     st_data = create_map(df)
 
+    st.write("### Tree Statistics")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric(label="No. of trees", value=df.shape[0])
+
+    with col2:
+        st.metric(label="Trees with > 1 trunk", value=len(df[df['tr_count'] > 1]))
+
+    with col3:
+        st.metric(label="Mean trunk (cm)", value=round(df['trunk_mean'].mean(), 2))
+
+    st.divider()
     st.write("### Types and Frequency of Trees")
 
     sub_df = df[["name_ger", "name_sci"]]
@@ -74,9 +87,11 @@ def main():
 
     st.altair_chart(chart, use_container_width=True)
 
-    st.write("### Protection Reason for trees")
+    # st.write("### Protection Reason for trees")
+    # st.dataframe(df)
 
-    st.metric(label="No. of trees", value=df.shape[0])
+    st.divider()
+    st.text('* Only trees for which coordinates could be identified are displayed here.')
 
 
 if __name__ == '__main__':

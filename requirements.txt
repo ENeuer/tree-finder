@@ -2,3 +2,7 @@ altair==5.0.1
 geopy==2.4.1
 pandas==1.2.3
 streamlit==1.23.1
+folium==0.15.1
+streamlit-folium==0.18.0
+requests==2.31.0
+

@@ -4,15 +4,16 @@ from data_cleaning_functions import remove_house_numbers, remove_cm, split_tree_
 
 def cleanup_data(df):
     # deleting multiple columns from the dataset
-    df.drop(columns=["baumnr", "east_etrs89", "north_etrs89", "originalbild"], inplace=True)
+    df.drop(columns=["baumnr", "east_etrs89", "north_etrs89", 'breitengrad', 'laengengrad',
+                     'originalbild', 'bild'], inplace=True)
 
     # Translating the columns into English
     new_column_names = ["id_nr", "name_ger", "name_sci", "location", "street", "house_number", "postalcode",
-                        "tree_circ", "prot_purpose", "senate_admin_nr", "lat", "long", "image"]
+                        "tree_circ", "prot_purpose", "senate_admin_nr"]
     df.columns = new_column_names
 
     # Data Type Conversions
-    columns_to_str = ["name_ger", "name_sci", "location", "street", "house_number", "postalcode", "tree_circ", "image",
+    columns_to_str = ["name_ger", "name_sci", "location", "street", "house_number", "postalcode", "tree_circ",
                       "prot_purpose", "senate_admin_nr"]
     df[columns_to_str] = df[columns_to_str].astype(str)
 
@@ -25,7 +26,7 @@ def cleanup_data(df):
         lambda row: row['house_number'] + " " + row['street'] + " " + row['postalcode'] + " " + "Berlin Germany",
         axis=1)
 
-    # Adding column containnig lat and long coordinates
+    # Adding column containing lat and long coordinates
     df[['latitude', 'longitude']] = df['location'].apply(lambda x: pd.Series(get_location(x)))
 
     # Adding unit into the tree_circ column

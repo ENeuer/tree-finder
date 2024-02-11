@@ -44,7 +44,7 @@ def cleanup_data(df):
     df_updated["trunk_mean"] = round(df["tree_circ_cm_list"].apply(lambda x: sum(x) / len(x) if x else None), 2)
 
     # Adding split prop purp as columns to dataframe
-    df_updated = split_prot_purp(df, "prot_purpose")
+    df_updated = split_prot_purp(df_updated, "prot_purpose")
 
     # Saving the updated dataframe
     # df_updated.to_csv("df_cleaned.csv")
